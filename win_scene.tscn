@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://wlr1kwvixf7y"]
+
+[ext_resource type="Script" path="res://death_scene.gd" id="1_bgwin"]
+[ext_resource type="Theme" uid="uid://dwi4ieimf73bh" path="res://button_theme.tres" id="2_i8bt5"]
+
+[node name="WinScene" type="Node2D"]
+script = ExtResource("1_bgwin")
+
+[node name="Quit" type="Button" parent="."]
+offset_left = -205.0
+offset_top = 46.0
+offset_right = -27.0
+offset_bottom = 114.0
+theme = ExtResource("2_i8bt5")
+text = "Quit"
+
+[node name="Restart" type="Button" parent="."]
+offset_left = 33.0
+offset_top = 46.0
+offset_right = 211.0
+offset_bottom = 114.0
+theme = ExtResource("2_i8bt5")
+text = "Restart"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -98.0
+offset_top = -72.0
+offset_right = 101.0
+offset_bottom = -4.0
+theme = ExtResource("2_i8bt5")
+theme_override_font_sizes/font_size = 50
+text = "You won"
+
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]

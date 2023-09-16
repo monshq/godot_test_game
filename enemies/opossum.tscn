@@ -1,0 +1,222 @@
+[gd_scene load_steps=24 format=3 uid="uid://c16duvm761fj5"]
+
+[ext_resource type="Script" path="res://enemies/opossum.gd" id="1_dlg22"]
+[ext_resource type="Texture2D" uid="uid://dr6jx165nyv05" path="res://assets/Sunny-land-assets-files/PNG/sprites/enemy-death/enemy-death-1.png" id="2_sbkm6"]
+[ext_resource type="Texture2D" uid="uid://udgxgojf7nxb" path="res://assets/Sunny-land-assets-files/PNG/sprites/enemy-death/enemy-death-2.png" id="3_65oas"]
+[ext_resource type="Texture2D" uid="uid://bqfyfbavrvcx4" path="res://assets/Sunny-land-assets-files/PNG/sprites/enemy-death/enemy-death-3.png" id="4_re0ye"]
+[ext_resource type="Texture2D" uid="uid://c87xk0lyrbj6i" path="res://assets/Sunny-land-assets-files/PNG/sprites/enemy-death/enemy-death-4.png" id="5_tk0m8"]
+[ext_resource type="Texture2D" uid="uid://bnkm03r1qsjnx" path="res://assets/Sunny-land-assets-files/PNG/sprites/enemy-death/enemy-death-5.png" id="6_qcwn0"]
+[ext_resource type="Texture2D" uid="uid://dasbmhvhyrr2d" path="res://assets/Sunny-land-assets-files/PNG/sprites/enemy-death/enemy-death-6.png" id="7_dgb14"]
+[ext_resource type="Texture2D" uid="uid://bgakqsutxmirj" path="res://assets/Sunny-land-assets-files/PNG/sprites/opossum/opossum-1.png" id="8_23mkp"]
+[ext_resource type="Texture2D" uid="uid://pu5088a201dt" path="res://assets/Sunny-land-assets-files/PNG/sprites/opossum/opossum-2.png" id="9_yul4x"]
+[ext_resource type="Texture2D" uid="uid://dnk0rdp0oaoy6" path="res://assets/Sunny-land-assets-files/PNG/sprites/opossum/opossum-3.png" id="10_x58ow"]
+[ext_resource type="Texture2D" uid="uid://begphtn382016" path="res://assets/Sunny-land-assets-files/PNG/sprites/opossum/opossum-4.png" id="11_slp5i"]
+[ext_resource type="Texture2D" uid="uid://s53rbm88m6pu" path="res://assets/Sunny-land-assets-files/PNG/sprites/opossum/opossum-5.png" id="12_j72x7"]
+[ext_resource type="Texture2D" uid="uid://1djwisvbxx2a" path="res://assets/Sunny-land-assets-files/PNG/sprites/opossum/opossum-6.png" id="13_ccor4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rkhg3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sbkm6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_65oas")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_re0ye")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tk0m8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qcwn0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_dgb14")
+}],
+"loop": true,
+"name": &"Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_23mkp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_yul4x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_x58ow")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_slp5i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_j72x7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ccor4")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_52ix0"]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Death"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_urg1g"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_qah3b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_8sa6t"]
+resource_name = "Run"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Run"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7a565"]
+_data = {
+"Death": SubResource("Animation_52ix0"),
+"Idle": SubResource("Animation_urg1g"),
+"RESET": SubResource("Animation_qah3b"),
+"Run": SubResource("Animation_8sa6t")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ret7k"]
+radius = 9.0
+height = 26.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3v7n1"]
+size = Vector2(20, 22)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jsfvp"]
+radius = 88.0511
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r752a"]
+radius = 219.112
+
+[node name="Opossum" type="CharacterBody2D"]
+script = ExtResource("1_dlg22")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, -14)
+sprite_frames = SubResource("SpriteFrames_rkhg3")
+animation = &"Run"
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Run"
+speed_scale = 1.5
+libraries = {
+"": SubResource("AnimationLibrary_7a565")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1, -9)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ret7k")
+
+[node name="DeathArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathArea"]
+visible = false
+position = Vector2(-1, -11)
+shape = SubResource("RectangleShape2D_3v7n1")
+
+[node name="PlayerDetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
+visible = false
+shape = SubResource("CircleShape2D_jsfvp")
+
+[node name="PlayerChaseArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerChaseArea"]
+visible = false
+shape = SubResource("CircleShape2D_r752a")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="DeathArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_player_detection_area_body_entered"]
+[connection signal="body_exited" from="PlayerChaseArea" to="." method="_on_player_chase_area_body_exited"]

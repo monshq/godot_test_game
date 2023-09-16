@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://deey3axkf8g4j"]
+
+[ext_resource type="Theme" uid="uid://dwi4ieimf73bh" path="res://button_theme.tres" id="1_ud2ur"]
+[ext_resource type="Script" path="res://death_scene.gd" id="1_uwxhy"]
+
+[node name="DeathScene" type="Node2D"]
+script = ExtResource("1_uwxhy")
+
+[node name="Quit" type="Button" parent="."]
+offset_left = -205.0
+offset_top = 46.0
+offset_right = -27.0
+offset_bottom = 114.0
+theme = ExtResource("1_ud2ur")
+text = "Quit"
+
+[node name="Restart" type="Button" parent="."]
+offset_left = 33.0
+offset_top = 46.0
+offset_right = 211.0
+offset_bottom = 114.0
+theme = ExtResource("1_ud2ur")
+text = "Restart"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -98.0
+offset_top = -72.0
+offset_right = 101.0
+offset_bottom = -4.0
+theme = ExtResource("1_ud2ur")
+theme_override_font_sizes/font_size = 50
+text = "You died"
+
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]

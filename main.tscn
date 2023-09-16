@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://by2k37ru6xlep"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_vqc1y"]
+[ext_resource type="Theme" uid="uid://dwi4ieimf73bh" path="res://button_theme.tres" id="2_8fey3"]
+[ext_resource type="PackedScene" uid="uid://dwyjon3jjka22" path="res://bg.tscn" id="2_btjje"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_vqc1y")
+
+[node name="Play" type="Button" parent="."]
+offset_left = 176.0
+offset_top = 299.0
+offset_right = 522.0
+offset_bottom = 434.0
+theme = ExtResource("2_8fey3")
+text = "Play"
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 748.0
+offset_top = 299.0
+offset_right = 1094.0
+offset_bottom = 434.0
+theme = ExtResource("2_8fey3")
+text = "Quit"
+
+[node name="BG" parent="." instance=ExtResource("2_btjje")]
+offset = Vector2(2.08165e-12, -400)
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 2.08165e-12, -400)
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
