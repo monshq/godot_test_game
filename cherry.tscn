@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://byjngwsf1nj5k"]
+
+[ext_resource type="Script" path="res://cherry.gd" id="1_1cyum"]
+[ext_resource type="Texture2D" uid="uid://dcd0vkldbevyr" path="res://assets/Sunny-land-assets-files/PNG/spritesheets/cherry.png" id="1_t4ma5"]
+[ext_resource type="AudioStream" uid="uid://cy6eynw0bk28d" path="res://assets/SoundPack01/Rise03.mp3" id="3_q7nm7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41e4u"]
+atlas = ExtResource("1_t4ma5")
+region = Rect2(0, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m346f"]
+atlas = ExtResource("1_t4ma5")
+region = Rect2(21, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pii3"]
+atlas = ExtResource("1_t4ma5")
+region = Rect2(42, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k7kg"]
+atlas = ExtResource("1_t4ma5")
+region = Rect2(63, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xs2gw"]
+atlas = ExtResource("1_t4ma5")
+region = Rect2(84, 0, 21, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kbkrv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41e4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m346f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pii3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k7kg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xs2gw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_badx6"]
+
+[node name="Cherry" type="AnimatableBody2D"]
+script = ExtResource("1_1cyum")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kbkrv")
+
+[node name="CollectedPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_q7nm7")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_badx6")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

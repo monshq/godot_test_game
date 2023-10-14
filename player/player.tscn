@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://croml1prhvit1"]
+[gd_scene load_steps=28 format=3 uid="uid://croml1prhvit1"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_sv2s6"]
 [ext_resource type="Texture2D" uid="uid://dmbkh50dn75l6" path="res://assets/Sunny-land-assets-files/PNG/sprites/player/hurt/player-hurt-1.png" id="2_ok20y"]
@@ -15,8 +15,11 @@
 [ext_resource type="Texture2D" uid="uid://uk451adi0n5s" path="res://assets/Sunny-land-assets-files/PNG/sprites/player/run/player-run-4.png" id="13_vadwu"]
 [ext_resource type="Texture2D" uid="uid://fgr1u0dolowd" path="res://assets/Sunny-land-assets-files/PNG/sprites/player/run/player-run-5.png" id="14_dbxhu"]
 [ext_resource type="Texture2D" uid="uid://cknr4ppexpigp" path="res://assets/Sunny-land-assets-files/PNG/sprites/player/run/player-run-6.png" id="15_eni1g"]
+[ext_resource type="AudioStream" uid="uid://tfpetf2dhxyd" path="res://assets/SoundPack01/Downer01.mp3" id="16_2wf58"]
+[ext_resource type="AudioStream" uid="uid://bkwy1tvunw4nf" path="res://assets/SoundPack01/Rise02.mp3" id="17_eh15l"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qitfv"]
+height = 24.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s3tke"]
 animations = [{
@@ -248,18 +251,21 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sj0k6"]
-radius = 14.0
-height = 28.0
+radius = 11.0
+height = 24.0
 
 [node name="Player" type="CharacterBody2D"]
+floor_snap_length = 35.0
 script = ExtResource("1_sv2s6")
+jump_velocity = -400.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_qitfv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_s3tke")
-animation = &"Run"
+animation = &"Idle"
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -269,15 +275,22 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(12, -5)
 zoom = Vector2(3, 3)
-limit_left = -15
-limit_right = 1580
 
 [node name="HitboxArea" type="Area2D" parent="."]
+position = Vector2(5, 5)
 
 [node name="HitbotShape" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(0, -2)
+position = Vector2(-5, -4)
 shape = SubResource("CapsuleShape2D_sj0k6")
+
+[node name="HitPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_2wf58")
+pitch_scale = 1.5
+
+[node name="KillPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_eh15l")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="HitboxArea" to="." method="_on_hitbox_area_body_entered"]

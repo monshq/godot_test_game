@@ -1,12 +1,25 @@
 [gd_scene load_steps=3 format=3 uid="uid://deey3axkf8g4j"]
 
+[ext_resource type="Script" path="res://quit_restart_buttons.gd" id="1_q2txv"]
 [ext_resource type="Theme" uid="uid://dwi4ieimf73bh" path="res://button_theme.tres" id="1_ud2ur"]
-[ext_resource type="Script" path="res://death_scene.gd" id="1_uwxhy"]
 
-[node name="DeathScene" type="Node2D"]
-script = ExtResource("1_uwxhy")
+[node name="DeathScene" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q2txv")
 
 [node name="Quit" type="Button" parent="."]
+layout_mode = 0
 offset_left = -205.0
 offset_top = 46.0
 offset_right = -27.0
@@ -15,6 +28,7 @@ theme = ExtResource("1_ud2ur")
 text = "Quit"
 
 [node name="Restart" type="Button" parent="."]
+layout_mode = 0
 offset_left = 33.0
 offset_top = 46.0
 offset_right = 211.0
@@ -23,6 +37,7 @@ theme = ExtResource("1_ud2ur")
 text = "Restart"
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 offset_left = -98.0
 offset_top = -72.0
 offset_right = 101.0

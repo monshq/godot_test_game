@@ -36,7 +36,13 @@ func _process(delta):
 		move_and_slide()
 
 func _on_area_2d_body_entered(body):
-	if body.name == "Player" and not dead:
+	print(body.name)
+	if body.name == 'Player':
+		on_hit(body)
+
+func on_hit(body):
+	if not dead:
+		body.on_kill()
 		dead = true
 		get_node("CollisionShape2D").queue_free()
 		anim.play("Death")

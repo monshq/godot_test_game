@@ -7,26 +7,57 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_vqc1y")
 
-[node name="Play" type="Button" parent="."]
-offset_left = 176.0
-offset_top = 299.0
-offset_right = 522.0
-offset_bottom = 434.0
-theme = ExtResource("2_8fey3")
-text = "Play"
-
-[node name="Quit" type="Button" parent="."]
-offset_left = 748.0
-offset_top = 299.0
-offset_right = 1094.0
-offset_bottom = 434.0
-theme = ExtResource("2_8fey3")
-text = "Quit"
-
 [node name="BG" parent="." instance=ExtResource("2_btjje")]
 offset = Vector2(2.08165e-12, -400)
 scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 2.08165e-12, -400)
 
-[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -270.0
+offset_top = -20.0
+offset_right = 230.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Play" type="Button" parent="UILayer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_8fey3")
+text = "Play"
+
+[node name="VSeparator" type="VSeparator" parent="UILayer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="Quit" type="Button" parent="UILayer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_8fey3")
+text = "Quit"
+
+[connection signal="pressed" from="UILayer/Control/HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UILayer/Control/HBoxContainer/Quit" to="." method="_on_quit_pressed"]
