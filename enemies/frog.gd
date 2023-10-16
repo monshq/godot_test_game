@@ -36,7 +36,7 @@ func _process(delta):
 		move_and_slide()
 
 func _on_area_2d_body_entered(body):
-	print(body.name)
+	print(name + " hit by " + body.name)
 	if body.name == 'Player':
 		on_hit(body)
 
@@ -50,11 +50,9 @@ func on_hit(body):
 		queue_free()
 
 func _on_player_detection_area_body_entered(body):
-	if body.name == "Player":
-		chase_target = body
+	chase_target = body
 		
 
-func _on_player_chase_area_body_exited(body):
-	if body.name == "Player":
-		chase_target = null
-		velocity.x = 0
+func _on_player_chase_area_body_exited(_body):
+	chase_target = null
+	velocity.x = 0

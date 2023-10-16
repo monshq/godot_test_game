@@ -251,10 +251,12 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sj0k6"]
-radius = 11.0
-height = 24.0
+radius = 9.0
+height = 26.0
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 9
 floor_snap_length = 35.0
 script = ExtResource("1_sv2s6")
 jump_velocity = -400.0
@@ -279,10 +281,12 @@ position = Vector2(12, -5)
 zoom = Vector2(3, 3)
 
 [node name="HitboxArea" type="Area2D" parent="."]
-position = Vector2(5, 5)
+position = Vector2(0, 3)
+collision_layer = 2
+collision_mask = 8
 
 [node name="HitbotShape" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(-5, -4)
+rotation = 1.5708
 shape = SubResource("CapsuleShape2D_sj0k6")
 
 [node name="HitPlayer" type="AudioStreamPlayer" parent="."]
@@ -291,6 +295,14 @@ pitch_scale = 1.5
 
 [node name="KillPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_eh15l")
+
+[node name="WallJumpTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="CoyoteJumpTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="HitboxArea" to="." method="_on_hitbox_area_body_entered"]

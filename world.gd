@@ -32,14 +32,11 @@ func _on_enemies_child_exiting_tree(_node):
 		
 		if is_instance_valid(player):
 			player.queue_free()
-		
-
 
 func _on_player_hit():
 	hp_label.text = str(player.health)
 	if player.health <= 10:
 		hp_label.add_theme_color_override("font_color", Color.FIREBRICK)
-
 
 func _on_cherry_collected():
 	var cherries_count = 5 - cherries.get_child_count() + 1

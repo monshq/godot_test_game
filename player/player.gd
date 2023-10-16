@@ -3,7 +3,8 @@ extends CharacterBody2D
 @export var speed = 300.0
 @export var jump_velocity = -300.0
 @export var health = 30
-@export var acceleration = 1200
+@export var acceleration = 3000
+@export var wall_jump_knockback_velocity = 450
 
 signal hit
 
@@ -12,6 +13,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var anim = get_node("AnimationPlayer")
 @onready var hit_player = $HitPlayer
 @onready var kill_player = $KillPlayer
+@onready var coyote_jump_timer = $CoyoteJumpTimer
+@onready var wall_jump_timer = $WallJumpTimer
 
 var dead = false
 var being_hit = false
@@ -21,29 +24,35 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	if not dead:
-		if !being_hit:
-			# Handle Jump.
-			if Input.is_action_just_pressed("jump") and is_on_floor():
-				velocity.y = jump_velocity
-				
-			if Input.is_action_just_pressed("jump") and is_on_wall():
-				velocity.y = jump_velocity
-				velocity.x = get_wall_normal().x * 300
-
-			# Get the input direction and handle the movement/deceleration.
-			# As good practice, you should replace UI actions with custom gameplay actions.
-			var direction = Input.get_axis("move_left", "move_right")
-			if direction:
-				velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
-			else:
-				velocity.x = move_toward(velocity.x, 0, acceleration)
+	if not (dead or being_hit):
+		# Handle Jump.
+		if Input.is_action_just_pressed("jump") and (is_on_floor() or coyote_jump_timer.time_left > 0):
+			velocity.y = jump_velocity
 			
+		if Input.is_action_just_pressed("jump") and (is_on_wall_only() or wall_jump_timer.time_left > 0):
+			velocity.y = jump_velocity
+			velocity.x = get_wall_normal().x * wall_jump_knockback_velocity
+			
+		if Input.is_action_just_released("jump"):
+			velocity.y = velocity.y * 0.3
+
+		var direction = Input.get_axis("move_left", "move_right")
+		if direction:
+			velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
+		else:
+			velocity.x = move_toward(velocity.x, 0, acceleration)
+		
 		if position.y > 1000:
 			queue_free()
-				
+	
+	var was_on_floor = is_on_floor()
+	var was_on_wall = is_on_wall_only()
 	play_animation()
 	move_and_slide()
+	if was_on_floor and not is_on_floor() and velocity.y >= 0:
+		coyote_jump_timer.start()
+	if was_on_wall and not is_on_wall():
+		wall_jump_timer.start()
 
 func play_animation():
 	if dead:
@@ -69,16 +78,14 @@ func play_animation():
 		anim.play("Idle")
 
 func _on_hitbox_area_body_entered(body):
-	if body.name != "Player" && body.name != "TileMap":
-		on_being_hit(body)
+	on_being_hit(body)
 
 func on_being_hit(body):
 	health -= 10
 	emit_signal("hit")
+	print(name + " hit by " + body.name)
 	if health > 0:
-		print("hit by" + body.name)
 		velocity.y -= 150
-		print(velocity)
 		var direction = (body.position - position).normalized().x
 		velocity.x = direction * -150
 		being_hit = true
