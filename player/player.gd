@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var health = 30
 @export var acceleration = 3000
 @export var wall_jump_knockback_velocity = 450
+@export var multiplayer_uid = 1
 
 signal hit
 
@@ -15,6 +16,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var kill_player = $KillPlayer
 @onready var coyote_jump_timer = $CoyoteJumpTimer
 @onready var wall_jump_timer = $WallJumpTimer
+@onready var synchronizer = $MultiplayerSynchronizer
 
 var dead = false
 var being_hit = false
@@ -23,8 +25,10 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
-
-	if not (dead or being_hit):
+		
+	#print("position is " + str(position))
+	#print("name " + name + " is authority " + str(is_multiplayer_authority()))
+	if not (dead or being_hit) and is_multiplayer_authority():
 		# Handle Jump.
 		if Input.is_action_just_pressed("jump") and (is_on_floor() or coyote_jump_timer.time_left > 0):
 			velocity.y = jump_velocity
@@ -105,3 +109,22 @@ func on_kill():
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Death":
 		queue_free()
+
+func _enter_tree():
+	var uid = name.to_int()
+	print("setting multiplayer authority to: " + name)
+	set_multiplayer_authority(uid)
+	call_deferred("after_spawn")
+
+func after_spawn():
+	if multiplayer_uid != 1:
+		pass
+#		name = str(multiplayer.get_unique_id())
+#		print("changed name to " + name)
+	if is_multiplayer_authority():
+		print("activating camera")
+		$Camera2D.make_current()
+
+
+func _on_multiplayer_synchronizer_synchronized():
+	print("synced position to ", position)

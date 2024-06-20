@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://croml1prhvit1"]
+[gd_scene load_steps=29 format=3 uid="uid://croml1prhvit1"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_sv2s6"]
 [ext_resource type="Texture2D" uid="uid://dmbkh50dn75l6" path="res://assets/Sunny-land-assets-files/PNG/sprites/player/hurt/player-hurt-1.png" id="2_ok20y"]
@@ -254,6 +254,11 @@ _data = {
 radius = 9.0
 height = 26.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dnk5b"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 9
@@ -271,10 +276,10 @@ animation = &"Idle"
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "Idle"
 libraries = {
 "": SubResource("AnimationLibrary_a3wlx")
 }
+autoplay = "Idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(12, -5)
@@ -304,5 +309,9 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_dnk5b")
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="HitboxArea" to="." method="_on_hitbox_area_body_entered"]
+[connection signal="synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_synchronized"]

@@ -59,5 +59,15 @@ size_flags_horizontal = 3
 theme = ExtResource("2_8fey3")
 text = "Quit"
 
+[node name="Button" type="Button" parent="UILayer/Control"]
+visible = false
+layout_mode = 0
+offset_left = -92.0
+offset_top = 133.0
+offset_right = 98.0
+offset_bottom = 199.0
+text = "Join"
+
 [connection signal="pressed" from="UILayer/Control/HBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="UILayer/Control/HBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="UILayer/Control/Button" to="." method="_on_button_pressed"]

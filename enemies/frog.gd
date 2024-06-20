@@ -8,12 +8,7 @@ var dead = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var anim = get_node("AnimatedSprite2D")
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -37,8 +32,7 @@ func _process(delta):
 
 func _on_area_2d_body_entered(body):
 	print(name + " hit by " + body.name)
-	if body.name == 'Player':
-		on_hit(body)
+	on_hit(body)
 
 func on_hit(body):
 	if not dead:
@@ -51,7 +45,6 @@ func on_hit(body):
 
 func _on_player_detection_area_body_entered(body):
 	chase_target = body
-		
 
 func _on_player_chase_area_body_exited(_body):
 	chase_target = null
